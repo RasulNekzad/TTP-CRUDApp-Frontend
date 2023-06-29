@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Campus = () => {
   const { campusId } = useParams();
@@ -23,7 +23,6 @@ const Campus = () => {
   }
 
   useEffect(() => {
-    console.log("mounting capmus WITH ID:::::", campusId);
     fetchCampusInfo(campusId);
   }, []);
 
@@ -38,7 +37,9 @@ const Campus = () => {
         students.map((student, index) => {
           return (
             <div key={index}>
-              {student.firstName} {student.lastName}
+              <Link to={`/students/${student.id}`}>
+                {student.firstName} {student.lastName}
+              </Link>
             </div>
           );
         })

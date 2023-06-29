@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Home, Students, Campuses } from "../pages";
-import { Campus } from "../components";
+import { Home, Campuses, Students } from "../pages";
+import { Campus, Student } from "../components";
 import "./App.css";
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
         <Route path="/students" element={<Students />} />
         <Route path="/campuses" element={<Campuses />} />
         <Route path="/campuses/:campusId" element={<Campus />} />
+        <Route path="/students/:studentId" element={<Student />} />
         <Route path="/*" element={<Home />} />
       </Routes>
     </Router>

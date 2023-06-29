@@ -10,7 +10,6 @@ const CampusCompact = ({ campus }) => {
         </h1>
         <img src={campus.imageUrl} />
       </div>
-      <button>see more</button>
       <hr />
     </>
   );
