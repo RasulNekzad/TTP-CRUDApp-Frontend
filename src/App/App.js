@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Home, Campuses, Students } from "../pages";
-import { AddCampusForm, Campus, Student } from "../components";
+import { AddCampusForm, AddStudentForm, Campus, Student } from "../components";
 import "./App.css";
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
         <Route path="/campuses/:campusId" element={<Campus />} />
         <Route path="/students/:studentId" element={<Student />} />
         <Route path="/add-campus" element={<AddCampusForm />} />
+        <Route path="/add-student" element={<AddStudentForm />} />
         <Route path="/*" element={<Home />} />
       </Routes>
     </Router>
