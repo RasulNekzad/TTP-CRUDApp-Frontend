@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { deleteStudentByIdThunk } from "../../redux/student/student.actions";
+import { useDispatch } from "react-redux";
 
 const StudentCompact = ({ student }) => {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(deleteStudentByIdThunk(student.id));
+  };
+
   return (
     <>
       <div>
@@ -11,6 +18,7 @@ const StudentCompact = ({ student }) => {
               {student.firstName} {student.lastName}
             </div>
           </Link>
+          <button onClick={handleClick}>X</button>
         </h1>
       </div>
       <hr />

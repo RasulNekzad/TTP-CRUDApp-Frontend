@@ -1,9 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { deleteStudentByIdThunk } from "../../redux/student/student.actions";
 
 const Student = () => {
   const { studentId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    dispatch(deleteStudentByIdThunk(studentId));
+    navigate("/students");
+  };
 
   useEffect(() => console.log(studentId), []);
 
@@ -31,6 +39,8 @@ const Student = () => {
     <div>
       <h1>
         {student.firstName} {student.lastName}
+        <button onClick={handleClick}>delete</button>
+        <Link to={`/edit-student/${studentId}`}>edit</Link>
       </h1>
       <img src={student.imageUrl} />
       <h2>

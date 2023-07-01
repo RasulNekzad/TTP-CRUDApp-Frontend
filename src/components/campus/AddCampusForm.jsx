@@ -11,7 +11,7 @@ const AddCampusForm = () => {
   });
   const navigate = useNavigate();
 
-  const namePattern = /^[a-zA-Z]+$/;
+  const namePattern = /^[a-zA-Z0-9" "]+$/;
   const addressPattern = /^[0-9a-zA-Z" "]+[a-zA-Z" "]+$/;
 
   useEffect(() => {

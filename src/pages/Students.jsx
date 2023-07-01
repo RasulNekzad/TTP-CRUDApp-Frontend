@@ -32,6 +32,9 @@ const Students = () => {
           );
         })}
       </div>
+      {allStudents.length === 0 && (
+        <h2>There are currently no registered students.</h2>
+      )}
     </div>
   );
 };

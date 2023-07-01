@@ -41,3 +41,10 @@ img {
   height: 125px;
   width: 125px;
 }
+
+body {
+  background-color: #d8ebd5;
+  /* background-image: url("stockbg.webp");
+  background-size: cover; */
+  font-family: 'Courier New', Courier, monospace
+}

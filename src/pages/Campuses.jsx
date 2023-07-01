@@ -31,6 +31,9 @@ const Campuses = () => {
           );
         })}
       </div>
+      {allCampuses.length === 0 && (
+        <h2>There are currently no registered campuses.</h2>
+      )}
     </div>
   );
 };

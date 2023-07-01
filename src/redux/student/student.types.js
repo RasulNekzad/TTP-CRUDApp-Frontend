@@ -1,5 +1,7 @@
 const StudentActionType = {
   FETCH_ALL_STUDENTS: "FETCH_ALL_STUDENTS",
+  DELETE_STUDENT_BY_ID: "DELETE_STUDENT_BY_ID",
+  UPDATE_STUDENT_DATA_BY_ID: "UPDATE_STUDENT_DATA_BY_ID",
 };
 
 export default StudentActionType;
