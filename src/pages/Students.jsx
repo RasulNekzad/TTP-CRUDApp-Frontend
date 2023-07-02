@@ -23,14 +23,16 @@ const Students = () => {
       <h1>All Students</h1>
       <button onClick={handleClick}>Add Student</button>
       <div className="studentListDiv">
-        {allStudents.map((student) => {
-          console.log("im mapping this student obj:", student);
-          return (
-            <div key={student.id}>
-              <StudentCompact student={student} />
-            </div>
-          );
-        })}
+        {allStudents
+          .sort((a, b) => a.id - b.id)
+          .map((student) => {
+            console.log("im mapping this student obj:", student);
+            return (
+              <div key={student.id}>
+                <StudentCompact student={student} />
+              </div>
+            );
+          })}
       </div>
       {allStudents.length === 0 && (
         <h2>There are currently no registered students.</h2>

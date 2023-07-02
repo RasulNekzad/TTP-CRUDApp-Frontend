@@ -31,7 +31,6 @@ const Student = () => {
   }
 
   useEffect(() => {
-    console.log("mounting student WITH ID:::::", studentId);
     fetchStudentInfo(studentId);
   }, []);
 
@@ -40,7 +39,9 @@ const Student = () => {
       <h1>
         {student.firstName} {student.lastName}
         <button onClick={handleClick}>delete</button>
-        <Link to={`/edit-student/${studentId}`}>edit</Link>
+        <Link to={`/edit-student/${studentId}`} state={{ student: student }}>
+          edit
+        </Link>
       </h1>
       <img src={student.imageUrl} />
       <h2>

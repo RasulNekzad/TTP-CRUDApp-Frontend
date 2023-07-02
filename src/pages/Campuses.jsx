@@ -23,13 +23,15 @@ const Campuses = () => {
       <h1>All Campuses</h1>
       <button onClick={handleClick}>Add Campus</button>
       <div className="campusListDiv">
-        {allCampuses.map((campus) => {
-          return (
-            <div key={campus.id}>
-              <CampusCompact campus={campus} />
-            </div>
-          );
-        })}
+        {allCampuses
+          .sort((a, b) => a.id - b.id)
+          .map((campus) => {
+            return (
+              <div key={campus.id}>
+                <CampusCompact campus={campus} />
+              </div>
+            );
+          })}
       </div>
       {allCampuses.length === 0 && (
         <h2>There are currently no registered campuses.</h2>

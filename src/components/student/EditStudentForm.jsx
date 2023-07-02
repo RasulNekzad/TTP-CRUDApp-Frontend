@@ -1,115 +1,107 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { updateStudentByIdThunk } from "../../redux/student/student.actions";
+import useValidatedFormInput from "../../hooks/useValidatedFormInput";
+import FormInput from "../FormInput";
+import { useLocation } from "react-router-dom";
 
 const EditStudentForm = () => {
-  const { studentId } = useParams();
+  const location = useLocation();
+  const { student } = location.state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [gpa, setGpa] = useState(0.0);
-  const [CampusId, setCampusId] = useState(null);
+  const firstName = useValidatedFormInput(
+    student.firstName,
+    /^[a-zA-Z]+[" "]*$/
+  );
+  const lastName = useValidatedFormInput(student.lastName, /^[a-zA-Z]+[" "]*$/);
+  const email = useValidatedFormInput(
+    student.email,
+    /^[\w-?:\/\.]+@[a-zA-Z]+\.(com|net|ru|gov|io|edu)+[" "]*$/
+  );
+  const imageUrl = useValidatedFormInput(
+    student.imageUrl,
+    /^.*\.(jpg|png|gif|webp|tiff|psd|raw|bmp|heif|indd|jpeg2000|svg)[" "]*$/
+  );
+  const gpa = useValidatedFormInput(student.gpa, null, 0, 4.0);
+  const CampusId = useValidatedFormInput(student.CampusId, /^[0-9]+$/);
 
   const updatedStudent = {
-    firstName,
-    lastName,
-    email,
-    imageUrl,
-    gpa,
-    CampusId,
+    firstName: firstName.value.trim(),
+    lastName: lastName.value.trim(),
+    email: email.value.trim(),
+    imageUrl: imageUrl.value.trim(),
+    gpa: gpa.value,
+    CampusId: CampusId.value,
   };
 
-  async function fetchStudentInfo(id) {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/api/student/${id}`
-      );
-      const studentData = response.data.student;
-      setFirstName(studentData.firstName);
-      setLastName(studentData.lastName);
-      setEmail(studentData.email);
-      setImageUrl(studentData.imageUrl);
-      setGpa(studentData.gpa);
-      setCampusId(studentData.CampusId);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const [isValidForm, setIsValidForm] = useState(false);
 
   useEffect(() => {
-    fetchStudentInfo(studentId);
-  }, []);
+    let isValid = true;
+    if (
+      !firstName.isValid() ||
+      !lastName.isValid() ||
+      !email.isValid() ||
+      !imageUrl.isValid() ||
+      !gpa.isValid() ||
+      !CampusId.isValid()
+    ) {
+      isValid = false;
+    }
+    setIsValidForm(isValid);
+  }, [firstName, lastName, email]);
 
   const handleSubmit = () => {
-    dispatch(updateStudentByIdThunk(studentId, updatedStudent));
-    navigate(`/students/${studentId}`);
+    dispatch(updateStudentByIdThunk(student.id, updatedStudent));
+    navigate(`/students/${student.id}`);
   };
 
   return (
     <div>
       <h1>Update Student</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            id="firstName"
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder={firstName}
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            id="lastName"
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder={lastName}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="text"
-            id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={email}
-          />
-        </div>
-        <div>
-          <label htmlFor="imageUrl">Image URL:</label>
-          <input
-            type="text"
-            id="imageUrl"
-            onChange={(e) => setImageUrl(e.target.value)}
-            placeholder={imageUrl}
-          />
-        </div>
-        <div>
-          <label htmlFor="gpa">GPA:</label>
-          <input
-            type="text"
-            id="gpa"
-            onChange={(e) => setGpa(e.target.value)}
-            placeholder={gpa}
-          />
-        </div>
-        <div>
-          <label htmlFor="CampusId">Campus ID:</label>
-          <input
-            type="text"
-            id="CampusId"
-            onChange={(e) => setCampusId(e.target.value)}
-            placeholder={CampusId}
-          />
-        </div>
-        <button type="submit">Update Campus</button>
+        <FormInput
+          label="First Name"
+          type="text"
+          inputProps={firstName}
+          validationMessage="Invalid first name."
+        />
+        <FormInput
+          label="Last Name"
+          type="text"
+          inputProps={lastName}
+          validationMessage="Invalid last name."
+        />
+        <FormInput
+          label="Email"
+          type="text"
+          inputProps={email}
+          validationMessage="Invalid email input."
+        />
+        <FormInput
+          label="Image URL"
+          type="text"
+          inputProps={imageUrl}
+          validationMessage="Invalid image URL."
+        />
+        <FormInput
+          label="GPA"
+          type="text"
+          inputProps={gpa}
+          validationMessage="Invalid GPA input."
+        />
+        <FormInput
+          label="Campus ID"
+          type="text"
+          inputProps={CampusId}
+          validationMessage="Invalid Campus ID."
+        />
+        <button disabled={!isValidForm} type="submit">
+          Update Campus
+        </button>
       </form>
     </div>
   );

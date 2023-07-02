@@ -66,6 +66,10 @@ const EditCampusForm = () => {
     }
   };
 
+  const handleClick = () => {
+    navigate(`/campuses/${campusId}`);
+  };
+
   return (
     <div>
       <h1>Update Campus</h1>
@@ -107,6 +111,7 @@ const EditCampusForm = () => {
           />
         </div>
         <button type="submit">Update Campus</button>
+        <button onClick={handleClick}>Back</button>
       </form>
       <h1>Students Not Enrolled In Any Campus</h1>
       {allStudents.filter((s) => !s.CampusId).length > 0 ? (

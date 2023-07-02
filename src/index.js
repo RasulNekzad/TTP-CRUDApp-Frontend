@@ -14,6 +14,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 axios.interceptors.response.use(
   (data) => {
+    console.log("data in interceptor", data);
+    if (data.data.message) {
+      toast.success(`Request was successful!\n${data.data.message}`);
+    }
     return data;
   },
   (error) => {

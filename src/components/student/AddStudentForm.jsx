@@ -1,63 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import FormInput from "../FormInput";
+import useValidatedFormInput from "../../hooks/useValidatedFormInput";
 
 const AddStudentForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({
-    email: null,
-    firstName: null,
-    lastName: null,
-  });
+  const firstName = useValidatedFormInput("", /^[a-zA-Z]+[" "]*$/);
+  const lastName = useValidatedFormInput("", /^[a-zA-Z]+[" "]*$/);
+  const email = useValidatedFormInput(
+    "",
+    /^\w+@[a-zA-Z]+\.(com|net|ru|gov|io|edu)+[" "]*$/
+  );
+
   const navigate = useNavigate();
 
-  const emailPattern = /^\w+@[a-zA-Z]+\.(com|net|ru|gov|io|edu)+$/;
-  const firstNamePattern = /^[a-zA-Z]+$/;
-  const lastNamePattern = /^[a-zA-Z]+$/;
-
-  useEffect(() => {
-    // ERRORS: {email: null ...}
-    if (!emailPattern.test(email) && email.length !== 0) {
-      setErrors({ ...errors, email: "Invalid email input" });
-    } else {
-      // Cleanup previous email errors
-      setErrors({ ...errors, email: null });
-    }
-  }, [email]);
-
-  useEffect(() => {
-    if (!firstNamePattern.test(firstName) && firstName.length !== 0) {
-      setErrors({ ...errors, firstName: "Invalid first name input" });
-    } else {
-      setErrors({ ...errors, firstName: null });
-    }
-  }, [firstName]);
-
-  useEffect(() => {
-    if (!lastNamePattern.test(lastName) && lastName.length !== 0) {
-      setErrors({ ...errors, lastName: "Invalid last name input" });
-    } else {
-      setErrors({ ...errors, lastName: null });
-    }
-  }, [lastName]);
+  const [isValidForm, setIsValidForm] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(errors);
     const newStudent = {
-      firstName,
-      lastName,
-      email,
+      firstName: firstName.value.trim(),
+      lastName: lastName.value.trim(),
+      email: email.value.trim(),
     };
-
-    for (const key in errors) {
-      if (errors[key] !== null) {
-        console.log(`Error found with ${key}, can't submit`);
-        return;
-      }
-    }
 
     axios
       .post("http://localhost:8080/api/student", newStudent)
@@ -70,48 +35,39 @@ const AddStudentForm = () => {
     navigate("/students");
   };
 
+  useEffect(() => {
+    let isValid = true;
+    if (!firstName.isValid() || !lastName.isValid() || !email.isValid()) {
+      isValid = false;
+    }
+    setIsValidForm(isValid);
+  }, [firstName, lastName, email]);
+
   return (
     <div>
       <h2>Add a New Student</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            id="firstName"
-            value={firstName}
-            required
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            id="lastName"
-            value={lastName}
-            required
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <button type="submit">Add Student</button>
-        {errors && (
-          <>
-            {errors["email"] && <h3>Invalid email input!</h3>}
-            {errors["firstName"] && <h3>Invalid first name input!</h3>}
-            {errors["lastName"] && <h3>Invalid last name input!</h3>}
-          </>
-        )}
+        <FormInput
+          label="First Name"
+          type="text"
+          inputProps={firstName}
+          validationMessage="Invalid first name."
+        />
+        <FormInput
+          label="Last Name"
+          type="text"
+          inputProps={lastName}
+          validationMessage="Invalid last name."
+        />
+        <FormInput
+          label="Email"
+          type="text"
+          inputProps={email}
+          validationMessage="Invalid email input."
+        />
+        <button disabled={!isValidForm} type="submit">
+          Add Student
+        </button>
       </form>
     </div>
   );
