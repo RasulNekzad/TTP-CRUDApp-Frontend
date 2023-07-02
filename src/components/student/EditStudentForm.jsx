@@ -1,43 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { updateStudentByIdThunk } from "../../redux/student/student.actions";
 import useValidatedFormInput from "../../hooks/useValidatedFormInput";
 import FormInput from "../FormInput";
-import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const EditStudentForm = () => {
-  const location = useLocation();
-  const { student } = location.state;
+  const { studentId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const firstName = useValidatedFormInput(
-    student.firstName,
-    /^[a-zA-Z]+[" "]*$/
-  );
-  const lastName = useValidatedFormInput(student.lastName, /^[a-zA-Z]+[" "]*$/);
+  const firstName = useValidatedFormInput("", /^[a-zA-Z]+[" "]*$/);
+  const lastName = useValidatedFormInput("", /^[a-zA-Z]+[" "]*$/);
   const email = useValidatedFormInput(
-    student.email,
+    "",
     /^[\w-?:\/\.]+@[a-zA-Z]+\.(com|net|ru|gov|io|edu)+[" "]*$/
   );
   const imageUrl = useValidatedFormInput(
-    student.imageUrl,
+    "",
     /^.*\.(jpg|png|gif|webp|tiff|psd|raw|bmp|heif|indd|jpeg2000|svg)[" "]*$/
   );
-  const gpa = useValidatedFormInput(student.gpa, null, 0, 4.0);
-  const CampusId = useValidatedFormInput(student.CampusId, /^[0-9]+$/);
+  const gpa = useValidatedFormInput("", null, 0, 4.0);
+  const CampusId = useValidatedFormInput("", /^[0-9]+$/);
+  const [isValidForm, setIsValidForm] = useState(false);
 
-  const updatedStudent = {
-    firstName: firstName.value.trim(),
-    lastName: lastName.value.trim(),
-    email: email.value.trim(),
-    imageUrl: imageUrl.value.trim(),
-    gpa: gpa.value,
-    CampusId: CampusId.value,
+  async function fetchStudentInfo(id) {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/student/${id}`
+      );
+      const studentData = response.data.student;
+      firstName.setValue(studentData.firstName);
+      lastName.setValue(studentData.lastName);
+      email.setValue(studentData.email);
+      imageUrl.setValue(studentData.imageUrl);
+      gpa.setValue(studentData.gpa);
+      CampusId.setValue(studentData.CampusId);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleSubmit = () => {
+    const updatedStudent = {
+      firstName: firstName.value.trim(),
+      lastName: lastName.value.trim(),
+      email: email.value.trim(),
+      imageUrl: imageUrl.value.trim(),
+      gpa: gpa.value,
+      CampusId: CampusId.value,
+    };
+    dispatch(updateStudentByIdThunk(studentId, updatedStudent));
+    navigate(`/students/${studentId}`);
   };
 
-  const [isValidForm, setIsValidForm] = useState(false);
+  useEffect(() => {
+    fetchStudentInfo(studentId);
+  }, []);
 
   useEffect(() => {
     let isValid = true;
@@ -52,12 +72,7 @@ const EditStudentForm = () => {
       isValid = false;
     }
     setIsValidForm(isValid);
-  }, [firstName, lastName, email]);
-
-  const handleSubmit = () => {
-    dispatch(updateStudentByIdThunk(student.id, updatedStudent));
-    navigate(`/students/${student.id}`);
-  };
+  }, [firstName, lastName, email, imageUrl, gpa, CampusId]);
 
   return (
     <div>

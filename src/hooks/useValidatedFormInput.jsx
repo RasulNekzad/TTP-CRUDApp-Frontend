@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useValidationFormInput = (
+const useValidatedFormInput = (
   initialValue,
   validationPattern,
   min = null,
@@ -23,8 +23,9 @@ const useValidationFormInput = (
     value,
     handleChange,
     isValid,
+    setValue,
   };
   return inputProps;
 };
 
-export default useValidationFormInput;
+export default useValidatedFormInput;

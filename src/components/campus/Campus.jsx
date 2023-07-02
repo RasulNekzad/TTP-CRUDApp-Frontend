@@ -11,9 +11,7 @@ const Campus = () => {
   const { campusId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const handleClickStudent = (student) => {
-  //   dispatch(deleteStudentByIdThunk(student.id));
-  // };
+
   const handleClick = () => {
     dispatch(deleteCampusByIdThunk(campusId));
     navigate("/campuses");
@@ -21,7 +19,6 @@ const Campus = () => {
 
   const [campus, setCampus] = useState({});
   const [students, setStudents] = useState([]);
-  // const allStudents = useSelector((state) => state.student.allStudents);
 
   async function fetchCampusInfo(id) {
     try {
@@ -79,7 +76,6 @@ const Campus = () => {
               <Link to={`/students/${student.id}`}>
                 {student.firstName} {student.lastName}
               </Link>
-              {/* <button onClick={() => handleClickStudent(student)}>X</button> */}
               <button
                 onClick={() => {
                   handleRemove(student.id);

@@ -7,6 +7,8 @@ import {
   fetchAllStudentsThunk,
   updateStudentByIdThunk,
 } from "../../redux/student/student.actions";
+import useValidatedFormInput from "../../hooks/useValidatedFormInput";
+import FormInput from "../FormInput";
 
 const EditCampusForm = () => {
   const { campusId } = useParams();
@@ -14,16 +16,15 @@ const EditCampusForm = () => {
   const navigate = useNavigate();
   const allStudents = useSelector((state) => state.student.allStudents);
 
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
-  const updatedCampus = {
-    name,
-    imageUrl,
-    address,
-    description,
-  };
+  const name = useValidatedFormInput("", /^[a-zA-Z0-9" "]+$/);
+  const imageUrl = useValidatedFormInput(
+    "",
+    /^.*\.(jpg|png|gif|webp|tiff|psd|raw|bmp|heif|indd|jpeg2000|svg)[" "]*$/
+  );
+  const address = useValidatedFormInput("", /^[0-9a-zA-Z" "]+[a-zA-Z" "]+$/);
+  const description = useValidatedFormInput("", /.*/);
+
+  const [isValidForm, setIsValidForm] = useState(false);
 
   async function fetchCampusInfo(id) {
     try {
@@ -31,10 +32,10 @@ const EditCampusForm = () => {
         `http://localhost:8080/api/campus/${id}`
       );
       const campusData = response.data.campus;
-      setName(campusData.name);
-      setImageUrl(campusData.imageUrl);
-      setAddress(campusData.address);
-      setDescription(campusData.description);
+      name.setValue(campusData.name);
+      imageUrl.setValue(campusData.imageUrl);
+      address.setValue(campusData.address);
+      description.setValue(campusData.description);
     } catch (error) {
       console.error(error);
     }
@@ -42,13 +43,29 @@ const EditCampusForm = () => {
 
   useEffect(() => {
     fetchCampusInfo(campusId);
-  }, []);
-
-  useEffect(() => {
     dispatch(fetchAllStudentsThunk());
   }, []);
 
+  useEffect(() => {
+    let isValid = true;
+    if (
+      !name.isValid() ||
+      !imageUrl.isValid() ||
+      !address.isValid() ||
+      !description.isValid()
+    ) {
+      isValid = false;
+    }
+    setIsValidForm(isValid);
+  }, [name, imageUrl, address, description]);
+
   const handleSubmit = () => {
+    const updatedCampus = {
+      name: name.value.trim(),
+      imageUrl: imageUrl.value,
+      address: address.value.trim(),
+      description: description.value.trim(),
+    };
     dispatch(updateCampusByIdThunk(campusId, updatedCampus));
     navigate(`/campuses/${campusId}`);
   };
@@ -73,44 +90,36 @@ const EditCampusForm = () => {
   return (
     <div>
       <h1>Update Campus</h1>
+      <h2>name is {name.value}</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            onChange={(e) => setName(e.target.value)}
-            placeholder={name}
-          />
-        </div>
-        <div>
-          <label htmlFor="imageUrl">Image URL:</label>
-          <input
-            type="text"
-            id="imageUrl"
-            onChange={(e) => setImageUrl(e.target.value)}
-            placeholder={imageUrl}
-          />
-        </div>
-        <div>
-          <label htmlFor="address">Address:</label>
-          <input
-            type="text"
-            id="address"
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder={address}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <input
-            type="text"
-            id="description"
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder={description}
-          />
-        </div>
-        <button type="submit">Update Campus</button>
+        <FormInput
+          label="Name"
+          type="text"
+          placeholder={name.value}
+          inputProps={name}
+          validationMessage="Invalid campus name."
+        />
+        <FormInput
+          label="Image URL"
+          type="text"
+          inputProps={imageUrl}
+          validationMessage="Invalid image URL."
+        />
+        <FormInput
+          label="Address"
+          type="text"
+          inputProps={address}
+          validationMessage="Invalid address input."
+        />
+        <FormInput
+          label="Description"
+          type="text"
+          inputProps={description}
+          validationMessage="Invalid description input."
+        />
+        <button disabled={!isValidForm} type="submit">
+          Update Campus
+        </button>
         <button onClick={handleClick}>Back</button>
       </form>
       <h1>Students Not Enrolled In Any Campus</h1>

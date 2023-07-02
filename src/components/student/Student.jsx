@@ -39,9 +39,7 @@ const Student = () => {
       <h1>
         {student.firstName} {student.lastName}
         <button onClick={handleClick}>delete</button>
-        <Link to={`/edit-student/${studentId}`} state={{ student: student }}>
-          edit
-        </Link>
+        <Link to={`/edit-student/${studentId}`}>edit</Link>
       </h1>
       <img src={student.imageUrl} />
       <h2>
