@@ -115,7 +115,7 @@ const EditStudentForm = () => {
           validationMessage="Invalid Campus ID."
         />
         <button disabled={!isValidForm} type="submit">
-          Update Campus
+          Update Student
         </button>
       </form>
     </div>
