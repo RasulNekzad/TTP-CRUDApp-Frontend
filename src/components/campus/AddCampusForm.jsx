@@ -6,7 +6,7 @@ import FormInput from "../FormInput";
 
 const AddCampusForm = () => {
   const name = useValidatedFormInput("", /^[a-zA-Z0-9" "]+$/);
-  const address = useValidatedFormInput("", /^[0-9a-zA-Z" "]+[a-zA-Z" "]+$/);
+  const address = useValidatedFormInput("", /^[0-9a-zA-Z" "]+[a-zA-Z]+[" "]*$/);
 
   const navigate = useNavigate();
 

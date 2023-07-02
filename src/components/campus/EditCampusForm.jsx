@@ -21,7 +21,7 @@ const EditCampusForm = () => {
     "",
     /^.*\.(jpg|png|gif|webp|tiff|psd|raw|bmp|heif|indd|jpeg2000|svg)[" "]*$/
   );
-  const address = useValidatedFormInput("", /^[0-9a-zA-Z" "]+[a-zA-Z" "]+$/);
+  const address = useValidatedFormInput("", /^[0-9a-zA-Z" "]+[a-zA-Z]+[" "]*$/);
   const description = useValidatedFormInput("", /.*/);
 
   const [isValidForm, setIsValidForm] = useState(false);
