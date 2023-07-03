@@ -12,7 +12,7 @@ const StudentCompact = ({ student }) => {
   return (
     <>
       <div>
-        <h1>
+        <h1 className="studentCompact">
           <Link to={`/students/${student.id}`}>
             <div>
               {student.firstName} {student.lastName}
@@ -21,7 +21,7 @@ const StudentCompact = ({ student }) => {
           <button onClick={handleClick}>X</button>
         </h1>
       </div>
-      <hr />
+      <hr style={{ backgroundColor: "red", height: "1px", border: "none" }} />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { updateCampusByIdThunk } from "../../redux/campus/campus.actions";
 import {
@@ -88,9 +88,8 @@ const EditCampusForm = () => {
   };
 
   return (
-    <div>
+    <div className="editCampusContainer">
       <h1>Update Campus</h1>
-      <h2>name is {name.value}</h2>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Name"
@@ -122,22 +121,25 @@ const EditCampusForm = () => {
         </button>
         <button onClick={handleClick}>Back</button>
       </form>
-      <h1>Students Not Enrolled In Any Campus</h1>
+      <h2>Students Not Enrolled In Any Campus</h2>
       {allStudents.filter((s) => !s.CampusId).length > 0 ? (
         allStudents.map((student, index) => {
           if (student.CampusId === null) {
             return (
               <div key={index}>
-                <h2>
-                  {student.firstName} {student.lastName}
-                  <button
-                    onClick={() => {
-                      handleAdd(student.id);
-                    }}
-                  >
-                    add
-                  </button>
-                </h2>
+                <Link to={`/students/${student.id}`}>
+                  <p>
+                    {student.firstName} {student.lastName}
+                    <button
+                      id="addStudentButton"
+                      onClick={() => {
+                        handleAdd(student.id);
+                      }}
+                    >
+                      add
+                    </button>
+                  </p>
+                </Link>
               </div>
             );
           }

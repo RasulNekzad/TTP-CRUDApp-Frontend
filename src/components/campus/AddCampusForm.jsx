@@ -40,7 +40,7 @@ const AddCampusForm = () => {
   }, [name, address]);
 
   return (
-    <div>
+    <div className="addCampusForm">
       <h2>Add a New Campus</h2>
       <form onSubmit={handleSubmit}>
         <FormInput

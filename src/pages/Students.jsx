@@ -20,9 +20,13 @@ const Students = () => {
 
   return (
     <div>
-      <h1>All Students</h1>
-      <button onClick={handleClick}>Add Student</button>
-      <div className="studentListDiv">
+      <div className="studentsHeader">
+        <h1 style={{ fontSize: "50px" }}>All Students</h1>
+        <button onClick={handleClick} className="addButton">
+          Add Student
+        </button>
+      </div>
+      <div className="studentListContainer">
         {allStudents
           .sort((a, b) => a.id - b.id)
           .map((student) => {
@@ -35,7 +39,9 @@ const Students = () => {
           })}
       </div>
       {allStudents.length === 0 && (
-        <h2>There are currently no registered students.</h2>
+        <h2 style={{ textAlign: "center" }}>
+          There are currently no registered students.
+        </h2>
       )}
     </div>
   );

@@ -36,26 +36,30 @@ const Student = () => {
 
   return (
     <div>
-      <h1>
-        {student.firstName} {student.lastName}
+      <div className="studentHeader">
+        <h1>
+          {student.firstName} {student.lastName}
+        </h1>
         <button onClick={handleClick}>delete</button>
         <Link to={`/edit-student/${studentId}`}>edit</Link>
-      </h1>
-      <img src={student.imageUrl} />
-      <h2>
-        {student.email}
-        <br />
-        {student.gpa}
-      </h2>
-      {campus ? (
-        <Link to={`/campuses/${campus.id}`}>
-          <h2>{campus.name}</h2>
-        </Link>
-      ) : (
+      </div>
+      <div className="studentBody">
+        <img src={student.imageUrl} />
         <h2>
-          {student.firstName} {student.lastName} does not belong to a campus.
+          {student.email}
+          <br />
+          GPA: {student.gpa}
         </h2>
-      )}
+        {campus ? (
+          <h2>
+            Attends <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
+          </h2>
+        ) : (
+          <h2>
+            {student.firstName} {student.lastName} does not belong to a campus.
+          </h2>
+        )}
+      </div>
     </div>
   );
 };

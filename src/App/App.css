@@ -37,6 +37,11 @@
   }
 }
 
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
 img {
   height: 125px;
   width: 125px;
@@ -47,4 +52,404 @@ body {
   /* background-image: url("stockbg.webp");
   background-size: cover; */
   font-family: 'Courier New', Courier, monospace
+}
+
+#homeDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#homeCampusDiv {
+  border: 1px solid black;
+  border-bottom: none;
+  border-right: none;
+  padding: 10px;
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 1000px;
+}
+
+#homeStudentDiv {
+  border: 1px solid black;
+  border-bottom: none;
+  border-left: none;
+  padding: 10px;
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 1000px;
+}
+
+.homeButton {
+  width: 50%;
+  height: 25%;
+  background-color: rgb(71, 71, 212);
+  color: rgb(245, 241, 241);
+  border-radius: 7px;
+  font-size: 45px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.navbar {
+  background: #282c34;
+  height: 70px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar a {
+  color:#fff;
+  font-size: 40px;
+  font-weight: bolder;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: end;
+  height: 100%;
+  align-items: end;
+}
+
+.navbar li {
+  margin-right: 25px;
+}
+
+.navbar li:first-child {
+  margin-right: 885px;
+}
+
+.navbar li:first-child a {
+  color: rgba(242, 0, 0, 0.928);
+  font-size: 43px;
+}
+
+.addButton {
+  width: 250px;
+  height:37px;
+  font-size: 17px;
+  background-color: #4d5e7f;
+  color: snow;
+  font-weight: 700;
+}
+
+.studentCompact button{
+  background-color: white;
+  color: red;
+  width: 30px;
+  font-size: 13px;
+  margin-left: 10px;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
+}
+
+.studentListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.studentsHeader {
+  display: flex;
+  justify-content: end;
+}
+.studentsHeader button {
+  margin-top: 40px;
+  margin-left: 35px;
+  margin-right: 250px;
+}
+
+.studentCompact {
+  display: flex;
+}
+
+.studentCompact a {
+  margin-left: 24px;
+}
+
+.campusListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.campusesHeader {
+  display: flex;
+  justify-content: end;
+}
+.campusesHeader button {
+  margin-top: 40px;
+  margin-left: 35px;
+  margin-right: 250px;
+}
+
+.campusCompact {
+  display: flex;
+}
+
+.campusCompact a {
+  margin-left: 24px;
+}
+
+.campusCompact button{
+  background-color: white;
+  color: red;
+  width: 30px;
+  font-size: 13px;
+  margin-left: 10px;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
+}
+
+.campusCompactContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.campusCompactContainer img {
+  margin:auto;
+}
+
+.addStudentForm {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addStudentForm h2 {
+  font-size: 29px;
+}
+
+.addStudentForm form div {
+  margin-bottom: 10px;
+}
+
+.addStudentForm form label {
+  margin-right: 5px;
+}
+
+.addStudentForm form p {
+  font-weight: 550;
+}
+
+/* .addStudentForm form button {
+  background-color: #4d5e7f;
+  color: snow;
+} */
+
+.addCampusForm {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addCampusForm h2 {
+  font-size: 29px;
+}
+
+.addCampusForm form div {
+  margin-bottom: 10px;
+}
+
+.addCampusForm form label {
+  margin-right: 5px;
+}
+
+.addCampusForm form p {
+  font-weight: 550;
+}
+
+/* .addCampusForm form button {
+  background-color: #4d5e7f;
+  color: snow;
+} */
+
+.studentHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.studentHeader h1 {
+  margin-left: 175px;
+  font-size: 35px;
+}
+
+.studentHeader button {
+  width: 90px;
+  height: 25px;
+  margin-top: 30px;
+  font-size: 10px;
+  background-color: snow;
+  color: red;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.studentHeader a {
+  margin-top: 35px;
+  font-family: 'Press Start 2P';
+  color: purple;
+}
+
+.studentBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.studentBody img {
+  height: 300px;
+  width: 300px;
+}
+
+
+.campusHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.campusHeader h1 {
+  margin-left: 175px;
+  font-size: 35px;
+}
+
+.campusHeader button {
+  width: 90px;
+  height: 25px;
+  margin-top: 30px;
+  font-size: 10px;
+  background-color: snow;
+  color: red;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.campusHeader a {
+  margin-top: 35px;
+  font-family: 'Press Start 2P';
+  color: purple;
+}
+
+.campusBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.campusBody img {
+  height: 400px;
+  width: 600px;
+}
+
+.campusBody p {
+  font-size: 20px;
+  font-weight: light;
+}
+
+.studentsInCampusContainer {
+  display: flex;
+  margin-top: 20px;
+}
+
+
+.studentsInCampusContainer a {
+  font-size: 20px;
+  margin-left: 30px;
+}
+
+.studentsInCampusContainer button {
+  width: 90px;
+  height: 25px;
+  font-size: 10px;
+  background-color: snow;
+  color: red;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
+  margin-left: 25px;
+}
+
+.editStudentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.editStudentContainer h2 {
+  font-size: 29px;
+}
+
+.editStudentContainer form div {
+  margin-bottom: 10px;
+}
+
+.editStudentContainer form label {
+  margin-right: 5px;
+}
+
+.editStudentContainer form p {
+  font-weight: 550;
+}
+
+
+.editStudentContainer button:last-child {
+  margin-left: 15px;
+}
+
+.editCampusContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.editCampusContainer h2 {
+  font-size: 29px;
+}
+
+.editCampusContainer form div {
+  margin-bottom: 10px;
+}
+
+.editCampusContainer form label {
+  margin-right: 5px;
+}
+
+.editCampusContainer form p {
+  font-weight: 550;
+}
+
+
+.editCampusContainer button:last-child {
+  margin-left: 15px;
+}
+
+.editCampusContainer p {
+  font-size: 20px;
+  font-weight: light;
+}
+
+#addStudentButton {
+  width: 75px;
+  height: 25px;
+  font-size: 10px;
+  background-color: snow;
+  color: blue;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
+  margin-left: 25px;
 }

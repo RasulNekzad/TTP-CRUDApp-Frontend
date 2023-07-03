@@ -11,14 +11,14 @@ const CampusCompact = ({ campus }) => {
 
   return (
     <>
-      <div>
-        <h1>
+      <div className="campusCompactContainer">
+        <h1 className="campusCompact">
           <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
           <button onClick={handleClick}>X</button>
         </h1>
         <img src={campus.imageUrl} />
       </div>
-      <hr />
+      <hr style={{ backgroundColor: "red", height: "1px", border: "none" }} />
     </>
   );
 };

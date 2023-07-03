@@ -74,8 +74,12 @@ const EditStudentForm = () => {
     setIsValidForm(isValid);
   }, [firstName, lastName, email, imageUrl, gpa, CampusId]);
 
+  const handleClick = () => {
+    navigate(`/students/${studentId}`);
+  };
+
   return (
-    <div>
+    <div className="editStudentContainer">
       <h1>Update Student</h1>
       <form onSubmit={handleSubmit}>
         <FormInput
@@ -117,6 +121,7 @@ const EditStudentForm = () => {
         <button disabled={!isValidForm} type="submit">
           Update Student
         </button>
+        <button onClick={handleClick}>Back</button>
       </form>
     </div>
   );

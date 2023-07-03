@@ -44,7 +44,7 @@ const AddStudentForm = () => {
   }, [firstName, lastName, email]);
 
   return (
-    <div>
+    <div className="addStudentForm">
       <h2>Add a New Student</h2>
       <form onSubmit={handleSubmit}>
         <FormInput

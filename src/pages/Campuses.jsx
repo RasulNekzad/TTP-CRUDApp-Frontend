@@ -10,7 +10,6 @@ const Campuses = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("in campuses");
     dispatch(fetchAllCampusesThunk());
   }, []);
 
@@ -20,9 +19,13 @@ const Campuses = () => {
 
   return (
     <div>
-      <h1>All Campuses</h1>
-      <button onClick={handleClick}>Add Campus</button>
-      <div className="campusListDiv">
+      <div className="campusesHeader">
+        <h1 style={{ fontSize: "50px" }}>All Campuses</h1>
+        <button onClick={handleClick} className="addButton">
+          Add Campus
+        </button>
+      </div>
+      <div className="campusListContainer">
         {allCampuses
           .sort((a, b) => a.id - b.id)
           .map((campus) => {
@@ -34,7 +37,9 @@ const Campuses = () => {
           })}
       </div>
       {allCampuses.length === 0 && (
-        <h2>There are currently no registered campuses.</h2>
+        <h2 style={{ textAlign: "center" }}>
+          There are currently no registered campuses.
+        </h2>
       )}
     </div>
   );

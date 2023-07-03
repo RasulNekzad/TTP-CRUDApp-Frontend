@@ -60,35 +60,37 @@ const Campus = () => {
 
   return (
     <div>
-      <h1>
-        {campus.name}
+      <div className="campusHeader">
+        <h1>{campus.name}</h1>
         <button onClick={handleClick}>delete</button>
         <Link to={`/edit-campus/${campusId}`}>edit</Link>
-      </h1>
-      <img src={campus.imageUrl} />
-      <h2>{campus.address}</h2>
-      <p>{campus.description}</p>
-      <h2>Enrolled Students</h2>
-      {students.length > 0 ? (
-        students.map((student, index) => {
-          return (
-            <div key={index}>
-              <Link to={`/students/${student.id}`}>
-                {student.firstName} {student.lastName}
-              </Link>
-              <button
-                onClick={() => {
-                  handleRemove(student.id);
-                }}
-              >
-                remove
-              </button>
-            </div>
-          );
-        })
-      ) : (
-        <h2>No enrolled students.</h2>
-      )}
+      </div>
+      <div className="campusBody">
+        <img src={campus.imageUrl} />
+        <h2>{campus.address}</h2>
+        <p>{campus.description}</p>
+        <h2>Enrolled Students</h2>
+        {students.length > 0 ? (
+          students.map((student, index) => {
+            return (
+              <div key={index} className="studentsInCampusContainer">
+                <Link to={`/students/${student.id}`}>
+                  {student.firstName} {student.lastName}
+                </Link>
+                <button
+                  onClick={() => {
+                    handleRemove(student.id);
+                  }}
+                >
+                  remove
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <h2 style={{ marginLeft: "20px" }}>No enrolled students.</h2>
+        )}
+      </div>
     </div>
   );
 };
