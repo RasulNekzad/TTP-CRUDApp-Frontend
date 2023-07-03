@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { deleteStudentByIdThunk } from "../../redux/student/student.actions";
 import { deleteCampusByIdThunk } from "../../redux/campus/campus.actions";
 import { updateStudentByIdThunk } from "../../redux/student/student.actions";
+import { BASE_URL } from "../../Api/baseUrl";
 
 const Campus = () => {
   const allStudents = useSelector((state) => state.student.allStudents);
@@ -22,9 +23,7 @@ const Campus = () => {
 
   async function fetchCampusInfo(id) {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/campus/${id}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/campus/${id}`);
       setCampus(response.data.campus);
       setStudents(response.data.students);
     } catch (error) {
@@ -43,9 +42,7 @@ const Campus = () => {
 
   const handleRemove = async (studentId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/student/${studentId}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/student/${studentId}`);
       const student = response.data.student;
       student.CampusId = null;
       dispatch(updateStudentByIdThunk(studentId, student));

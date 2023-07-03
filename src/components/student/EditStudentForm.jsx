@@ -5,6 +5,7 @@ import { updateStudentByIdThunk } from "../../redux/student/student.actions";
 import useValidatedFormInput from "../../hooks/useValidatedFormInput";
 import FormInput from "../FormInput";
 import axios from "axios";
+import { BASE_URL } from "../../Api/baseUrl";
 
 const EditStudentForm = () => {
   const { studentId } = useParams();
@@ -27,9 +28,7 @@ const EditStudentForm = () => {
 
   async function fetchStudentInfo(id) {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/student/${id}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/student/${id}`);
       const studentData = response.data.student;
       firstName.setValue(studentData.firstName);
       lastName.setValue(studentData.lastName);

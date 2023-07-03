@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { deleteStudentByIdThunk } from "../../redux/student/student.actions";
+import { BASE_URL } from "../../Api/baseUrl";
 
 const Student = () => {
   const { studentId } = useParams();
@@ -20,9 +21,7 @@ const Student = () => {
 
   async function fetchStudentInfo(id) {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/student/${id}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/student/${id}`);
       setStudent(response.data.student);
       setCampus(response.data.campus);
     } catch (error) {

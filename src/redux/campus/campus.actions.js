@@ -1,6 +1,6 @@
 import axios from "axios";
-
 import CampusActionType from "./campus.types";
+import { BASE_URL } from "../../Api/baseUrl";
 
 export const fetchAllCampuses = (payload) => {
   return {
@@ -26,7 +26,7 @@ export const updateCampusById = (payload) => {
 export const fetchAllCampusesThunk = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("http://localhost:8080/api/campus");
+      const response = await axios.get(`${BASE_URL}/api/campus`);
       dispatch(fetchAllCampuses(response.data));
     } catch (error) {
       console.error(error);
@@ -37,7 +37,7 @@ export const fetchAllCampusesThunk = () => {
 export const deleteCampusByIdThunk = (campusId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:8080/api/campus/${campusId}`);
+      await axios.delete(`${BASE_URL}/api/campus/${campusId}`);
       dispatch(deleteCampusById(campusId));
     } catch (error) {
       console.error(error);
@@ -49,7 +49,7 @@ export const updateCampusByIdThunk = (campusId, updatedCampus) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/campus/${campusId}`,
+        `${BASE_URL}/api/campus/${campusId}`,
         updatedCampus
       );
       dispatch(updateCampusById(response.data.newData));

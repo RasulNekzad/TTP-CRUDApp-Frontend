@@ -21,7 +21,7 @@ axios.interceptors.response.use(
     return data;
   },
   (error) => {
-    console.log("Request failed.", error.response);
+    console.log("Request failed.", error);
     toast.error(
       `Request failed with error message: ${error.response.data.message}!`
     );

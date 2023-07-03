@@ -1,6 +1,6 @@
 import axios from "axios";
-
 import StudentActionType from "./student.types";
+import { BASE_URL } from "../../Api/baseUrl";
 
 export const fetchAllStudents = (payload) => {
   return {
@@ -26,7 +26,7 @@ export const updateStudentById = (payload) => {
 export const fetchAllStudentsThunk = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("http://localhost:8080/api/student");
+      const response = await axios.get(`${BASE_URL}/api/student`);
       dispatch(fetchAllStudents(response.data));
     } catch (error) {
       console.error(error);
@@ -37,7 +37,7 @@ export const fetchAllStudentsThunk = () => {
 export const deleteStudentByIdThunk = (studentId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:8080/api/student/${studentId}`);
+      await axios.delete(`${BASE_URL}/api/student/${studentId}`);
       dispatch(deleteStudentById(studentId));
     } catch (error) {
       console.error(error);
@@ -49,7 +49,7 @@ export const updateStudentByIdThunk = (studentId, updatedStudent) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/student/${studentId}`,
+        `${BASE_URL}/api/student/${studentId}`,
         updatedStudent
       );
       dispatch(updateStudentById(response.data.newData));

@@ -9,6 +9,7 @@ import {
 } from "../../redux/student/student.actions";
 import useValidatedFormInput from "../../hooks/useValidatedFormInput";
 import FormInput from "../FormInput";
+import { BASE_URL } from "../../Api/baseUrl";
 
 const EditCampusForm = () => {
   const { campusId } = useParams();
@@ -28,9 +29,7 @@ const EditCampusForm = () => {
 
   async function fetchCampusInfo(id) {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/campus/${id}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/campus/${id}`);
       const campusData = response.data.campus;
       name.setValue(campusData.name);
       imageUrl.setValue(campusData.imageUrl);
@@ -72,9 +71,7 @@ const EditCampusForm = () => {
 
   const handleAdd = async (studentId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/student/${studentId}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/student/${studentId}`);
       const student = response.data.student;
       student.CampusId = campusId;
       dispatch(updateStudentByIdThunk(studentId, student));
