@@ -15,7 +15,7 @@ const EditStudentForm = () => {
   const lastName = useValidatedFormInput("", /^[a-zA-Z]+[" "]*$/);
   const email = useValidatedFormInput(
     "",
-    /^[\w-?:\/\.]+@[a-zA-Z]+\.(com|net|ru|gov|io|edu)+[" "]*$/
+    /^[\w-?:\/\.]+@[a-zA-Z]+\.(com|net|ru|gov|io|edu|org)+[" "]*$/
   );
   const imageUrl = useValidatedFormInput(
     "",
