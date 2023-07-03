@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FormInput from "../FormInput";
 import useValidatedFormInput from "../../hooks/useValidatedFormInput";
+import { BASE_URL } from "../../Api/baseUrl";
 
 const AddStudentForm = () => {
   const firstName = useValidatedFormInput("", /^[a-zA-Z]+[" "]*$/);
