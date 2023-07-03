@@ -66,8 +66,7 @@ const EditStudentForm = () => {
       !lastName.isValid() ||
       !email.isValid() ||
       !imageUrl.isValid() ||
-      !gpa.isValid() ||
-      !CampusId.isValid()
+      !gpa.isValid()
     ) {
       isValid = false;
     }
