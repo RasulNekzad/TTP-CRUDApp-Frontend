@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useValidatedFormInput from "../../hooks/useValidatedFormInput";
 import FormInput from "../FormInput";
+import { BASE_URL } from "../../Api/baseUrl";
 
 const AddCampusForm = () => {
   const name = useValidatedFormInput("", /^[a-zA-Z0-9" "]+$/);
@@ -19,7 +20,7 @@ const AddCampusForm = () => {
     };
 
     axios
-      .post("http://localhost:8080/api/campus", newCampus)
+      .post(`${BASE_URL}/api/campus`, newCampus)
       .then((response) => {
         console.log("Campus created:", response.data);
       })

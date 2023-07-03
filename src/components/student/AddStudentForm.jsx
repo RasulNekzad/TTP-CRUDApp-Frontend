@@ -25,7 +25,7 @@ const AddStudentForm = () => {
     };
 
     axios
-      .post("http://localhost:8080/api/student", newStudent)
+      .post(`${BASE_URL}/api/student`, newStudent)
       .then((response) => {
         console.log("Student created:", response.data);
       })
