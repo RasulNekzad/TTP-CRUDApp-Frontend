@@ -124,19 +124,19 @@ const EditCampusForm = () => {
           if (student.CampusId === null) {
             return (
               <div key={index}>
-                <Link to={`/students/${student.id}`}>
-                  <p>
+                <p>
+                  <Link to={`/students/${student.id}`}>
                     {student.firstName} {student.lastName}
-                    <button
-                      id="addStudentButton"
-                      onClick={() => {
-                        handleAdd(student.id);
-                      }}
-                    >
-                      add
-                    </button>
-                  </p>
-                </Link>
+                  </Link>
+                  <button
+                    id="addStudentButton"
+                    onClick={() => {
+                      handleAdd(student.id);
+                    }}
+                  >
+                    add
+                  </button>
+                </p>
               </div>
             );
           }
